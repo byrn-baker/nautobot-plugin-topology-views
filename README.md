@@ -1,6 +1,6 @@
-# Netbox Topology Views Plugin
+# Nautobot Topology Views Plugin
 
-![Version](https://img.shields.io/pypi/v/netbox-topology-views) ![Downloads](https://img.shields.io/pypi/dm/netbox-topology-views)
+![Version](https://img.shields.io/pypi/v/nautobot-topology-views) ![Downloads](https://img.shields.io/pypi/dm/nautobot-topology-views)
 
 Create topology views/maps from your devices in NetBox.
 The connections are based on the cables you created in NetBox.
@@ -14,41 +14,41 @@ Options to export to xml (for draw.io/diagrams.net) or png.
 
 ## Install
 
-**_NOTE:_** For docker please see: [Docker install](https://github.com/netbox-community/netbox-docker/wiki/Using-Netbox-Plugins)
+**_NOTE:_** For docker please see: [Docker install](https://github.com/nautobot-community/nautobot-docker/wiki/Using-Nautobot-Plugins)
 
-**_NOTE:_** Add `RUN mkdir -p /opt/netbox/netbox/static/netbox_topology_views/img` to the Dockerfile-Plugins file to create the image folder
+**_NOTE:_** Add `RUN mkdir -p /opt/nautobot/nautobot/static/nautobot_topology_views/img` to the Dockerfile-Plugins file to create the image folder
 
 The plugin is available as a Python package and can be installed with pip.
 
-Run `pip install netbox-topology-views` in your virtual env.
+Run `pip install nautobot-topology-views` in your virtual env.
 
-To ensure NetBox Topology Views plugin is automatically re-installed during future upgrades, create a file named `local_requirements.txt` (if not already existing) in the NetBox root directory (alongside `requirements.txt`) and list the `netbox-topology-views` package:
+To ensure NetBox Topology Views plugin is automatically re-installed during future upgrades, create a file named `local_requirements.txt` (if not already existing) in the NetBox root directory (alongside `requirements.txt`) and list the `nautobot-topology-views` package:
 
 ```no-highlight
-# echo netbox-topology-views >> local_requirements.txt
+# echo nautobot-topology-views >> local_requirements.txt
 ```
 
 Once installed, the plugin needs to be enabled in your `configuration.py`
 
 ```python
 # In your configuration.py
-PLUGINS = ["netbox_topology_views"]
+PLUGINS = ["nautobot_topology_views"]
 ```
 
-First run `source /opt/netbox/venv/bin/activate` to enter the Python virtual environment.
+First run `source /opt/nautobot/venv/bin/activate` to enter the Python virtual environment.
 
 
 Then run 
 ```bash
-cd /opt/netbox/netbox
-pip3 install netbox-topology-views
-python3 manage.py migrate netbox_topology_views
+cd /opt/nautobot/nautobot
+pip3 install nautobot-topology-views
+python3 manage.py migrate nautobot_topology_views
 python3 manage.py collectstatic --no-input
 ```
 
 ### Versions
 
-| netbox version | netbox-topology-views version |
+| nautobot version | nautobot-topology-views version |
 | -------------- | ----------------------------- |
 | >= 3.7.0       | >= v3.9.0                     |
 | >= 3.6.4       | >= v3.8.1                     |
@@ -64,9 +64,9 @@ python3 manage.py collectstatic --no-input
 
 ### Update
 
-Run `pip install netbox-topology-views --upgrade` in your venv.
+Run `pip install nautobot-topology-views --upgrade` in your venv.
 
-Run `python3 manage.py migrate netbox_topology_views`
+Run `python3 manage.py migrate nautobot_topology_views`
 
 Run `python3 manage.py collectstatic --no-input`
 
@@ -80,13 +80,13 @@ All individual options can be assigned a default value per user directly in the 
 
 ![Individual Options](doc/img/topology_individual_options.png)
 
-The remaining options must be configured in the `PLUGINS_CONFIG` section of your `netbox/configuration.py`.
+The remaining options must be configured in the `PLUGINS_CONFIG` section of your `nautobot/configuration.py`.
 
 Example:
 ```
 PLUGINS_CONFIG = {
-    'netbox_topology_views': {
-        'static_image_directory': 'netbox_topology_views/img',
+    'nautobot_topology_views': {
+        'static_image_directory': 'nautobot_topology_views/img',
         'allow_coordinates_saving': True,
         'always_save_coordinates': True
     }
@@ -95,7 +95,7 @@ PLUGINS_CONFIG = {
 
 | Setting                  | Default value                                                                                                                                  | Description                                                                                                            |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| static_image_directory   | netbox_topology_views/img                                                                                                                      | (str or pathlib.Path) Specifies the location that images will be loaded from by default. Must be within `STATIC_ROOT`  |
+| static_image_directory   | nautobot_topology_views/img                                                                                                                      | (str or pathlib.Path) Specifies the location that images will be loaded from by default. Must be within `STATIC_ROOT`  |
 | allow_coordinates_saving | False                                                                                                                                          | (bool) Set to true if you want to enable the ability to save the coordinates.                           |
 | always_save_coordinates  | False                                                                                                                                          | (bool) Set if you want to enable the option to save coordinates by default. Setting allow_coordinates_saving to true is mandatory.                                             |
 
@@ -127,13 +127,13 @@ Please note that values stored in the custom field "coordinates" are not being c
 
 ### Custom Images
 
-To change image with associated device use the `Images` page - it allows to map a device role with an image found in the NetBox static directory (defined by the plugin config `static_image_directory` which defaults to `netbox_topology_views/img`). You can also upload you own custom images to there - these images will automatically be used for a device (if it does not already have a specified image in the settings) if their name is the device role slug.
+To change image with associated device use the `Images` page - it allows to map a device role with an image found in the NetBox static directory (defined by the plugin config `static_image_directory` which defaults to `nautobot_topology_views/img`). You can also upload you own custom images to there - these images will automatically be used for a device (if it does not already have a specified image in the settings) if their name is the device role slug.
 
 ![Images](doc/img/topology_images.png)
 
 ## Use
 
-Go to the plugins tab in the navbar and click topology or go to `$NETBOX_URL/plugins/netbox_topology_views/` to view your topologies
+Go to the plugins tab in the navbar and click topology or go to `$NETBOX_URL/plugins/nautobot_topology_views/` to view your topologies
 
 Select your options for the topology view:
 
@@ -166,12 +166,12 @@ Select your options for the topology view:
     
 ### Coordinates and Coordinate Groups
 
-Netbox Topology Views stores the position of the devices. In order to allow different representations for the topology, Coordinate Groups are supported.
+Nautobot Topology Views stores the position of the devices. In order to allow different representations for the topology, Coordinate Groups are supported.
 
 > Please read the "Configure" chapter to set the `allow_coordinates_saving` option to True.
 You might also set the `always_save_coordinates` option to True.
 
-Navigate to "Coordinate Groups" in the menu and create as many groups as you like. You can select a group later in the filter pane in order to show icon positions according to this group (see chapter "Use"). You can also omit creating a group if you don't need this feature. Netbox Topology Views automatically creates a group named "default" for you and stores all coordinates in this group, even if you do not select a group in the filter.
+Navigate to "Coordinate Groups" in the menu and create as many groups as you like. You can select a group later in the filter pane in order to show icon positions according to this group (see chapter "Use"). You can also omit creating a group if you don't need this feature. Nautobot Topology Views automatically creates a group named "default" for you and stores all coordinates in this group, even if you do not select a group in the filter.
 
 By default, the position of the devices are calculated with a physics engine. As soon as a device icon is dragged to another location, its position is saved and excluded from the calculation by the physics engine. All saved coordinates can be viewed and edited under the menu item "Coordinates".
 
@@ -179,35 +179,35 @@ By default, the position of the devices are calculated with a physics engine. As
 
 ### Permissions
 
-To view `/plugins/netbox_topology-views/topology` you need the following permissions:
+To view `/plugins/nautobot_topology-views/topology` you need the following permissions:
  + dcim | device | can view device
  + dcim | site | can view site
  + extras | tag | can view tag
  + dcim | device role | can view device role
 
 To save `Coordinates` when moving icons:
- + netbox_topology_views | coordinate | change
+ + nautobot_topology_views | coordinate | change
 
-To view `/plugins/netbox_topology-views/images`:
+To view `/plugins/nautobot_topology-views/images`:
  + dcim | site | view
  + dcim | device role | view
  + dcim | device role | add
  + dcim | device role | change
 
-To view `/plugins/netbox_topology-views/individualoptions`:
- + netbox_topology_views | individual options | change
+To view `/plugins/nautobot_topology-views/individualoptions`:
+ + nautobot_topology_views | individual options | change
 
 Set `Coordinate Groups` according to your needs:
- + netbox_topology_views | coordinate groups | view/add/change/delete
+ + nautobot_topology_views | coordinate groups | view/add/change/delete
 
 Set `Coordinates` according to your needs:
- + netbox_topology_views | coordinate | view/add/change/delete
+ + nautobot_topology_views | coordinate | view/add/change/delete
 
 Set `Power Feed Coordinates` according to your needs:
- + netbox_topology_views | power feed coordinate | view/add/change/delete
+ + nautobot_topology_views | power feed coordinate | view/add/change/delete
 
 Set `Power Panel Coordinates` according to your needs:
- + netbox_topology_views | power panel coordinate | view/add/change/delete
+ + nautobot_topology_views | power panel coordinate | view/add/change/delete
 
 Set `Circuit Coordinates` according to your needs:
- + netbox_topology_views | circuit coordinate | view/add/change/delete
+ + nautobot_topology_views | circuit coordinate | view/add/change/delete
